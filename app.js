@@ -1,3 +1,4 @@
+//1
 import express from 'express'; // Import express voor het opzetten van de webserver
 import mysql from 'mysql2/promise'; // Import mysql2/promise om async database queries uit te voeren
 import fs from 'fs'; // Import fs om SQL-bestanden in te lezen
@@ -24,12 +25,12 @@ app.use(express.static('public')); // Zorg ervoor dat alle bestanden in de map '
 
 // Database configuratie
 const dbConfig = {
-    host: "spectrum__organization",
-    user: "xxx",
-    database: "bbn7ekypqukj7rbdub1i",
-    password: "xxx"
+    host: "localhost",
+    user: "root",
+    database: "SPECTRUM",
+    password: ""
 };
-
+//4
 // Functie om SQL-bestanden uit te voeren
 const executeQuery = async (queryFile) => {
     console.log(`Query bestand: ${queryFile} wordt uitgevoerd`);
@@ -38,6 +39,16 @@ const executeQuery = async (queryFile) => {
       const query = fs.readFileSync(path.join(__dirname, 'queries', queryFile), 'utf-8'); // Gebruik het aangepaste __dirname
       console.log("SQL Query:", query); // Log de SQL-query die wordt uitgevoerd
       const [rows] = await connection.execute(query);
+      /*
+      execute(query) retourneert een array met twee elementen: [rows, fields].
+      De destructuring [rows] betekent dat we alleen het eerste element (de rijen) ophalen en toewijzen aan de variabele rows.
+      Het maakt de code korter en duidelijker, omdat we de metadata (fields) niet nodig hebben.
+
+      Zonder destructuring:
+      const result = await connection.execute(query);
+      const rows = result[0]; // result[0] bevat de queryresultaten (rows)
+      const fields = result[1]; // result[1] bevat de metadata van de query (fields)
+      */
       console.log("Query resultaat:", rows); // Log het resultaat van de query
       return rows;
     } catch (error) {
@@ -45,7 +56,7 @@ const executeQuery = async (queryFile) => {
       throw error;
     }
   };  
-
+//2
 // API route voor het ophalen van dieren
 app.get('/api/pets', async (req, res) => {
     const sortBy = req.query.sort || 'name';
@@ -67,7 +78,7 @@ app.get('/api/pets', async (req, res) => {
       res.status(500).json({ error: `Fout bij het ophalen van data: ${error.message}` }); // Stuur de fout als JSON terug naar de frontend
     }
   });  
-
+//3
 app.listen(PORT, () => {
   console.log(`Server draait op http://localhost:${PORT}`);
 });

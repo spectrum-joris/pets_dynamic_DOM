@@ -1,3 +1,4 @@
+//1
 // Ophalen van dieren data
 const fetchPets = async (sortBy = 'name') => {
     const response = await fetch(`/api/pets?sort=${sortBy}`); // Haal dieren op, gesorteerd volgens de opgegeven parameter
@@ -5,7 +6,7 @@ const fetchPets = async (sortBy = 'name') => {
     console.log(pets); // Controleer of de data correct binnenkomt
     displayPets(pets); // Geef de dieren array door aan displayPets in plaats van een string
 };
-
+//4
 // Weergeven van dieren in de DOM
 const displayPets = (pets) => {
     const petsList = document.querySelector('.pets-list'); // Zoek het DOM-element waar de dierenlijst komt
@@ -25,14 +26,14 @@ const displayPets = (pets) => {
         petsList.appendChild(petItem); // Voeg elk dier toe aan de DOM
     });
 };
-
+//2
 // Leeftijd berekenen
 const calculateAge = (birth, death = new Date()) => {
     const birthDate = new Date(birth); // Maak een datumobject van de geboortedatum
     const endDate = new Date(death); // Gebruik de overlijdensdatum, of huidige datum als het dier nog leeft
     return endDate.getFullYear() - birthDate.getFullYear(); // Bereken het verschil in jaren
 };
-
+//3
 // Voeg event listeners toe aan de sorteerknoppen
 document.querySelectorAll('.sort-buttons__button').forEach(button => {
     button.addEventListener('click', () => {
@@ -40,7 +41,7 @@ document.querySelectorAll('.sort-buttons__button').forEach(button => {
         fetchPets(sortBy); // Haal de dieren op, gesorteerd volgens de geselecteerde optie
     });
 });
-
+//5
 // Laad standaard de lijst gesorteerd op naam
 fetchPets();
 
